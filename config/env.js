@@ -1,0 +1,3 @@
+import 'dotenv/config';
+export const env={port:Number(process.env.PORT||5000),clientOrigin:process.env.CLIENT_ORIGIN||'http://localhost:5173',firebaseDatabaseUrl:process.env.FIREBASE_DATABASE_URL||'https://sun-glaze-pro-default-rtdb.asia-southeast1.firebasedatabase.app',firebaseProjectId:process.env.FIREBASE_PROJECT_ID||'sun-glaze-pro',firebaseClientEmail:process.env.FIREBASE_CLIENT_EMAIL||'',firebasePrivateKey:process.env.FIREBASE_PRIVATE_KEY||'',otpSecret:process.env.OTP_HMAC_SECRET||'',nodeEnv:process.env.NODE_ENV||'development'};
+if(env.nodeEnv==='production'&&env.otpSecret.length<32)throw new Error('OTP_HMAC_SECRET must contain at least 32 characters in production.');
