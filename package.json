@@ -3,19 +3,19 @@
   "version": "0.7.0",
   "private": true,
   "type": "module",
-  "scripts": {
-    "dev": "vite --host 0.0.0.0",
-    "build": "vite build",
-    "preview": "vite preview",
-    "server": "node server/index.js",
-    "server:dev": "node --watch server/index.js",
-    "check:server": "node server/scripts/checkSyntax.js",
-    "create:super-admin": "node server/scripts/createSuperAdmin.js",
-    "test:rbac": "node --test --test-force-exit server/tests/*.test.js",
-    "test": "node --test --test-force-exit server/tests/*.test.js",
-    "migrate:examinations": "node server/scripts/migrateExaminations.js",
-    "test:ui": "node server/tests/ui/smoke.mjs"
-  },
+"scripts": {
+  "dev": "vite --host 0.0.0.0",
+  "build": "vite build",
+  "preview": "vite preview",
+  "server": "node index.js",
+  "server:dev": "node --watch index.js",
+  "check:server": "node scripts/checkSyntax.js",
+  "create:super-admin": "node scripts/createSuperAdmin.js",
+  "test:rbac": "node --test --test-force-exit tests/*.test.js",
+  "test": "node --test --test-force-exit tests/*.test.js",
+  "migrate:examinations": "node scripts/migrateExaminations.js",
+  "test:ui": "node tests/ui/smoke.mjs"
+},
   "dependencies": {
     "@capacitor/android": "^7.4.3",
     "@capacitor/app": "^7.0.2",
