@@ -1,14 +1,14 @@
 import{env}from'../config/env.js';
 /** Provider boundary: add an approved SMS vendor adapter here without changing OTP logic. */
 /**
- * TEMPORARY dev/testing switch. When OTP_DEBUG_DISPLAY=true the generated OTP is returned to the
- * frontend (field `devOtp`) so it can be shown on screen. In production it additionally requires
- * ALLOW_OTP_DISPLAY_IN_PRODUCTION=true, so it can never be exposed by accident.
+ * TEMPORARY dev/testing switch: the generated OTP is returned to the frontend as `devOtp` so it can be shown on screen.
+ * - Non-production (NODE_ENV!=='production'): ON by default; set OTP_DEBUG_DISPLAY=false to turn it off.
+ * - Production: OFF unless BOTH OTP_DEBUG_DISPLAY=true and ALLOW_OTP_DISPLAY_IN_PRODUCTION=true are set.
  */
 export function otpDisplayEnabled(){
- if(String(process.env.OTP_DEBUG_DISPLAY||'').toLowerCase()!=='true')return false;
- if(env.nodeEnv==='production')return String(process.env.ALLOW_OTP_DISPLAY_IN_PRODUCTION||'').toLowerCase()==='true';
- return true;
+ const flag=String(process.env.OTP_DEBUG_DISPLAY||'').toLowerCase();
+ if(env.nodeEnv==='production')return flag==='true'&&String(process.env.ALLOW_OTP_DISPLAY_IN_PRODUCTION||'').toLowerCase()==='true';
+ return flag!=='false';
 }
 export async function deliverOtp({mobile,purpose,otp,ttlMinutes}){
  if(otpDisplayEnabled()){console.info(`[JUPITER DEV OTP] ${mobile} (${purpose}) — ${otp} (shown on screen; expires in ${ttlMinutes}m)`);return{delivered:false,channel:'on-screen'};}
